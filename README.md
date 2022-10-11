@@ -1,3 +1,1 @@
-# files
-
-This is a test
+# Bulletin and Lamplighter PDF files
