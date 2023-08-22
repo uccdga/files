@@ -1,4 +1,4 @@
-name: Manual PowerShell Workflow
+name: Generate Podcast
 
 on:
   workflow_dispatch: # This event allows manual triggering
@@ -15,4 +15,4 @@ jobs:
       run: |
         # Replace this line with your actual PowerShell command
         # For example, let's say you want to run a simple script
-        pwsh -Command "Write-Host 'Hello, PowerShell Workflow!'"
+        pwsh -Command "Write-Host 'Hello, Generate Podcast!'"
