@@ -20,3 +20,10 @@ jobs:
     - name: Run YouTube-DL command
       run: |
         yt-dlp --extract-audio --audio-format mp3 --postprocessor-args "-ss 00:32:22 -to 00:52:15" "https://www.youtube.com/watch?v=Ia4SGbnyc1E"
+
+    - name: Upload MP3 as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: downloaded-audio
+        path: |
+          *.mp3
