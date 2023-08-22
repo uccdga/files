@@ -1,11 +1,26 @@
 name: YouTube Download Workflow
 
 on:
-  workflow_dispatch: # This event allows manual triggering
+  workflow_dispatch:
+    inputs:
+      video_url:
+        description: 'YouTube Video URL'
+        required: true
+      start_time:
+        description: 'Start Time (format: HH:MM:SS)'
+        required: true
+      end_time:
+        description: 'End Time (format: HH:MM:SS)'
+        required: true
 
 jobs:
   download_youtube_audio:
     runs-on: ubuntu-latest
+    
+    env:
+      VIDEO_URL: ${{ github.event.inputs.video_url }}
+      START_TIME: ${{ github.event.inputs.start_time }}
+      END_TIME: ${{ github.event.inputs.end_time }}
     
     steps:
     - name: Checkout repository
@@ -19,7 +34,7 @@ jobs:
 
     - name: Run YouTube-DL command
       run: |
-        yt-dlp --extract-audio --audio-format mp3 --postprocessor-args "-ss 00:32:22 -to 00:52:15" "https://www.youtube.com/watch?v=Ia4SGbnyc1E"
+        yt-dlp --extract-audio --audio-format mp3 --postprocessor-args "-ss $START_TIME -to $END_TIME" "$VIDEO_URL"
 
     - name: Upload MP3 as artifact
       uses: actions/upload-artifact@v2
