@@ -1,4 +1,4 @@
-name: Manual YouTube Download Workflow
+name: YouTube Download Workflow
 
 on:
   workflow_dispatch: # This event allows manual triggering
@@ -11,11 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install PowerShell
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y powershell
+        sudo apt-get install -y python3-pip ffmpeg
+        pip3 install yt-dlp
 
-    - name: Run YouTube-DL PowerShell command
+    - name: Run YouTube-DL command
       run: |
-        pwsh -Command "yt-dlp --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=Ia4SGbnyc1E --ffmpeg-location 'C:\Program Files\Badlion Client' --postprocessor-args '-ss 00:32:22 -to 00:52:15'"
+        yt-dlp --extract-audio --audio-format mp3 --postprocessor-args "-ss 00:32:22 -to 00:52:15" "https://www.youtube.com/watch?v=Ia4SGbnyc1E"
