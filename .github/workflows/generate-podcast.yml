@@ -1,4 +1,4 @@
-name: YouTube Download Workflow
+name: Generate podcast audio
 
 on:
   workflow_dispatch: # This event allows manual triggering
@@ -21,9 +21,15 @@ jobs:
       run: |
         yt-dlp --extract-audio --audio-format mp3 --postprocessor-args "-ss 00:32:22 -to 00:52:15" "https://www.youtube.com/watch?v=Ia4SGbnyc1E"
 
-    - name: Upload MP3 as artifact
+    - name: Prepare files
+      run: |
+        mkdir artifacts
+        mv *.mp3 artifacts/
+
+    - name: Upload MP3 files as artifacts
       uses: actions/upload-artifact@v2
       with:
         name: downloaded-audio
         path: |
-          *.mp3
+          artifacts/
+        if-no-files-found: fail # This line ensures the workflow fails if no files are found
