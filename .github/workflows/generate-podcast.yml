@@ -15,4 +15,4 @@ jobs:
       run: |
         # Replace this line with your actual PowerShell command
         # For example, let's say you want to run a simple script
-        pwsh -Command "Write-Host 'Hello, Generate Podcast!'"
+        pwsh -Command yt-dlp --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=Ia4SGbnyc1E --ffmpeg-location "C:\Program Files\Badlion Client" --postprocessor-args "-ss 00:32:22 -to 00:52:15"
