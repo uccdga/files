@@ -1,18 +1,21 @@
-name: Generate Podcast
+name: Manual YouTube Download Workflow
 
 on:
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
-  run_powershell:
+  download_youtube_audio:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run PowerShell command
+    - name: Install PowerShell
       run: |
-        # Replace this line with your actual PowerShell command
-        # For example, let's say you want to run a simple script
-        pwsh -Command yt-dlp --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=Ia4SGbnyc1E --ffmpeg-location "C:\Program Files\Badlion Client" --postprocessor-args "-ss 00:32:22 -to 00:52:15"
+        sudo apt-get update
+        sudo apt-get install -y powershell
+
+    - name: Run YouTube-DL PowerShell command
+      run: |
+        pwsh -Command "yt-dlp --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=Ia4SGbnyc1E --ffmpeg-location 'C:\Program Files\Badlion Client' --postprocessor-args '-ss 00:32:22 -to 00:52:15'"
