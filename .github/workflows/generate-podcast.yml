@@ -15,4 +15,4 @@ jobs:
       run: |
         # Replace this line with your actual PowerShell command
         # For example, let's say you want to run a simple script
-        powershell -Command "Write-Host 'Hello, PowerShell Workflow!'"
+        pwsh -Command "Write-Host 'Hello, PowerShell Workflow!'"
