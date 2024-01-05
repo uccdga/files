@@ -11,15 +11,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install FFmpeg
+    - name: Install FFmpeg and 7-Zip
       run: |
         sudo apt-get update
-        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y ffmpeg p7zip-full
       shell: bash
 
     - name: Create Slideshow
       run: |
-        unzip -p '.github/workflows/to_mp4/images.zip' '*.jpg' | ffmpeg -framerate 1/10 -f image2pipe -i - -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
+        7z e -so .github/workflows/to_mp4/images.zip '*.jpg' | ffmpeg -framerate 1/10 -f image2pipe -i - -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
       shell: bash
       working-directory: $(System.DefaultWorkingDirectory)
 
