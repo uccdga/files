@@ -11,6 +11,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Display Working Directory Contents
+      run: |
+        ls -l
+      shell: bash
+      
     - name: Install FFmpeg
       run: |
         sudo apt-get update
