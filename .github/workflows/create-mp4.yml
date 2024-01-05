@@ -17,15 +17,11 @@ jobs:
         sudo apt-get install -y ffmpeg
       shell: bash
 
-    - name: Display Working Directory Contents
-      run: |
-        ls -l
-      shell: bash
-
     - name: Create Slideshow
       run: |
-        ffmpeg -framerate 1/10 -pattern_type glob -i '.github/workflows/to_mp4/*.jpg' -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
+        unzip -p '.github/workflows/to_mp4/images.zip' '*.jpg' | ffmpeg -framerate 1/10 -f image2pipe -i - -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
       shell: bash
+      working-directory: $(System.DefaultWorkingDirectory)
 
     - name: Display Generated Files
       run: |
